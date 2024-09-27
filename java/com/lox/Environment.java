@@ -17,6 +17,9 @@ class Environment {
 
     Object get(Token name) {
         if (values.containsKey(name.lexeme)) {
+            // Object value = values.get(name.lexeme);
+            // if (value != null) return values.get(name.lexeme);
+            // throw new RuntimeError(name, "Unassigned variable '" + name.lexeme + "'.");
             return values.get(name.lexeme);
         }
 
