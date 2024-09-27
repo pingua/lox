@@ -34,7 +34,7 @@ class Scanner {
       keywords.put("var",    VAR);
       keywords.put("while",  WHILE);
     }
- 
+
     Scanner(String source) {
         this.source = source;
     }
@@ -64,7 +64,7 @@ class Scanner {
             case ';': addToken(SEMICOLON); break;
             case '*': addToken(STAR); break;
             case '?': addToken(QUESTION); break;
-            case ':': addToken(COLON); break;            
+            case ':': addToken(COLON); break;
             case '!':
                 addToken(match('=') ? BANG_EQUAL : BANG);
                 break;
@@ -93,7 +93,7 @@ class Scanner {
             case '\t':
                 // Ignore whitespace.
                 break;
-        
+
             case '\n':
                 line++;
                 break;
@@ -167,7 +167,7 @@ class Scanner {
         }
 
         advance();
-        advance();  
+        advance();
     }
 
     private boolean match(char expected) {
