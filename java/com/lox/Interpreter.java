@@ -36,6 +36,18 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Object visitArrayExpr(Expr.Array expr) {
+        ArrayList<Object> elements = new ArrayList<>();
+        for (Expr element : expr.elements) {
+            elements.add(evaluate(element));
+        }
+
+        LoxArray array = new LoxArray(elements);
+
+        return array;
+    }
+
+    @Override
     public Object visitAssignExpr(Expr.Assign expr) {
         Object value = evaluate(expr.value);
 
@@ -130,7 +142,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             return ((LoxInstance) object).get(expr.name);
         }
 
-        throw new RuntimeError(expr.name, "Only instance shave properties.");
+        throw new RuntimeError(expr.name, "Only instances have properties.");
     }
 
     @Override
@@ -327,7 +339,8 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
        
         Map<String, LoxFunction> methods = new HashMap<>();
         for (Stmt.Function method : stmt.methods) {
-            LoxFunction function = new LoxFunction(method, environment, method.name.lexeme.equals("init"));
+            LoxFunction function = new LoxFunction(method, environment,
+                method.name.lexeme.equals("init"));
             methods.put(method.name.lexeme, function);
         }
 

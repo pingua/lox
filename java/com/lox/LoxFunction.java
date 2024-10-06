@@ -8,7 +8,8 @@ class LoxFunction implements LoxCallable {
 
     private final boolean isInitializer;
 
-    LoxFunction(Stmt.Function declaration, Environment closure, boolean isInitializer) {
+    LoxFunction(Stmt.Function declaration, Environment closure,
+        boolean isInitializer) {
         this.declaration = declaration;
         this.closure = closure;
         this.isInitializer = isInitializer;

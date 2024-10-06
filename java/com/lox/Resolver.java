@@ -150,6 +150,15 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitArrayExpr(Expr.Array expr) {
+        for (Expr element : expr.elements) {
+            resolve(element);
+        }
+
+        return null;
+    }
+
+    @Override
     public Void visitAssignExpr(Expr.Assign expr) {
         resolve(expr.value);
         resolveLocal(expr, expr.name);

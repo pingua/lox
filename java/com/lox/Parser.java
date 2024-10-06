@@ -361,6 +361,19 @@ class Parser {
         return expr;
     }
 
+    private List<Expr> array() {
+        List<Expr> expr = new ArrayList<>();
+        if (!check(RIGHT_BRACKET)) {
+            do {
+                Expr element = expression();
+                expr.add(element);
+            } while (match(COMMA));
+        }
+        consume(RIGHT_BRACKET, "Expect ']' after elements.");
+
+        return expr;
+    }
+
     private Expr primary() {
         if (match(FALSE)) return new Expr.Literal(false);
         if (match(TRUE)) return new Expr.Literal(true);
@@ -385,17 +398,22 @@ class Parser {
 
         if (match(LEFT_PAREN)) {
             Expr expr = expression();
-            consume(RIGHT_PAREN, "Expect ')' after epxression.");
+            consume(RIGHT_PAREN, "Expect ')' after expression.");
             return new Expr.Grouping(expr);
         }
 
-        if (match(COMMA, BANG_EQUAL, EQUAL_EQUAL, GREATER, GREATER_EQUAL, LESS, LESS_EQUAL, PLUS, SLASH, STAR)) {
+        if (match(LEFT_BRACKET)) {
+            List<Expr> expr = array();
+            return new Expr.Array(expr);
+        }
+
+        if (match(BANG_EQUAL, EQUAL_EQUAL, GREATER, GREATER_EQUAL, LESS, LESS_EQUAL, PLUS, SLASH, STAR)) {
             Token operator = previous();
             advance();
             throw error(operator, "Binary operator '" + operator.lexeme + "' is not expected at the beginning of an expression.");
         }
 
-        if (match(QUESTION, COLON)) {
+        if (match(QUESTION)) {
             Token operator = previous();
             advance();
             throw error(operator, "Ternary operator '" + operator.lexeme + "' is not expected at the beginning of an expression.");

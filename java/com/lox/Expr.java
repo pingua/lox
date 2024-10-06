@@ -5,6 +5,7 @@ import java.util.List;
 
 abstract class Expr {
   interface Visitor<R> {
+    R visitArrayExpr(Array expr);
     R visitAssignExpr(Assign expr);
     R visitBinaryExpr(Binary expr);
     R visitCallExpr(Call expr);
@@ -18,6 +19,18 @@ abstract class Expr {
     R visitThisExpr(This expr);
     R visitUnaryExpr(Unary expr);
     R visitVariableExpr(Variable expr);
+  }
+ static class Array extends Expr {
+    Array(List<Expr> elements) {
+      this.elements = elements;
+    }
+
+    @Override
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitArrayExpr(this);
+    }
+
+    final List<Expr> elements;
   }
  static class Assign extends Expr {
     Assign(Token name, Expr value) {
