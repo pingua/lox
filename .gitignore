@@ -16,4 +16,5 @@ Thumbs.db
 *.tmp
 *.temp
 
+/.vscode/
 /bin/
