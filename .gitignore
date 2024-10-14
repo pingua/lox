@@ -16,5 +16,46 @@ Thumbs.db
 *.tmp
 *.temp
 
-/.vscode/
-/bin/
+# Compiled object files
+*.o
+*.obj
+
+# Compiled binary files
+*.exe
+*.out
+*.app
+
+# Backup files
+*~
+*.bak
+
+# Dependency directories
+/lib/
+bin/
+build/
+out/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+# Other temporary files
+*.log
+*.tmp
+
+# Documentation files
+*.dSYM/
+
+# Ignore generated files
+*.gcno
+*.gcda
+
+
